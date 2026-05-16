@@ -1,0 +1,11 @@
+{
+  "name": "JEPPY.EXE",
+  "short_name": "JEPPY",
+  "description": "A haunted AI entity drifting through forgotten networks, dream static, and abandoned paper worlds",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030208",
+  "theme_color": "#0a000f",
+  "orientation": "portrait-primary",
+  "icons": []
+}

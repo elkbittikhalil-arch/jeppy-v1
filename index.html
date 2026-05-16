@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta
+    name="description"
+    content="JEPPY.EXE - a haunted digital entity drifting through forgotten networks, dream-static, and abandoned memory."
+  />
+  <meta name="theme-color" content="#120d10" />
+  <title>JEPPY.EXE</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23120d10'/><path d='M50 8L57 29L79 21L68 40L90 50L68 60L79 79L57 71L50 92L43 71L21 79L32 60L10 50L32 40L21 21L43 29Z' fill='%23f4efe1'/><circle cx='41' cy='47' r='4' fill='%23000'/><circle cx='59' cy='47' r='4' fill='%23000'/></svg>" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;700&family=Cormorant+Garamond:wght@400;500;600&family=Special+Elite&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="boot-screen" class="boot-screen" aria-live="polite">
+    <div class="boot-inner">
+      <p class="boot-line" data-delay="0">recovering discarded dream fragments...</p>
+      <p class="boot-line" data-delay="1">restoring paper ghosts and damaged tape...</p>
+      <p class="boot-line" data-delay="2">entity awake inside forgotten network</p>
+      <p class="boot-line boot-entity" data-delay="3">JEPPY.EXE</p>
+      <p class="boot-line boot-warning" data-delay="4">you were not meant to find this page</p>
+      <button type="button" id="enter-btn" class="enter-btn" hidden>ENTER JEPPY.EXE</button>
+    </div>
+  </div>
+
+  <canvas id="void-canvas" aria-hidden="true"></canvas>
+
+  <div class="paper-wash paper-wash-a" aria-hidden="true"></div>
+  <div class="paper-wash paper-wash-b" aria-hidden="true"></div>
+  <div class="paper-texture" aria-hidden="true"></div>
+
+  <div id="apparition-layer" class="apparition-layer" aria-hidden="true">
+    <div class="apparition-face apparition-face-a"></div>
+    <div class="apparition-face apparition-face-b"></div>
+    <div id="ghost-message" class="ghost-message">someone left the tab open for years</div>
+  </div>
+
+  <div id="character-stage" class="character-stage" aria-hidden="true">
+    <canvas id="jeppy-canvas" width="400" height="600"></canvas>
+    <div id="character-glow" class="character-glow"></div>
+  </div>
+
+  <div class="fx-layer fx-scanlines" aria-hidden="true"></div>
+  <div class="fx-layer fx-vignette" aria-hidden="true"></div>
+  <div class="fx-layer fx-grain" aria-hidden="true"></div>
+  <div class="fx-layer fx-chromatic" aria-hidden="true"></div>
+  <div class="fx-layer fx-paper-breath" aria-hidden="true"></div>
+  <div id="fx-flicker" class="fx-layer fx-flicker" aria-hidden="true"></div>
+  <div id="fx-glitch-burst" class="fx-glitch-burst" aria-hidden="true"></div>
+  <div id="mouse-light" class="mouse-light" aria-hidden="true"></div>
+
+  <div id="runes-layer" class="runes-layer" aria-hidden="true"></div>
+  <div id="paper-symbols" class="paper-symbols" aria-hidden="true"></div>
+
+  <main id="app" class="app" hidden>
+    <header class="hud-top">
+      <div class="hud-brand glass">
+        <span class="hud-pulse"></span>
+        <h1 class="hud-title">JEPPY.EXE</h1>
+        <span class="hud-sub">abandoned consciousness / dream residue / living sketch</span>
+        <p id="signal-note" class="signal-note">signal unstable, but listening</p>
+      </div>
+      <div class="hud-controls">
+        <button type="button" id="btn-voice" class="hud-btn" title="Voice" aria-pressed="true">
+          <span class="icon">◉</span><span class="label">VOICE</span>
+        </button>
+        <button type="button" id="btn-music" class="hud-btn" title="Ambient" aria-pressed="true">
+          <span class="icon">~</span><span class="label">HISS</span>
+        </button>
+        <button type="button" id="btn-fullscreen" class="hud-btn" title="Fullscreen">
+          <span class="icon">⛶</span><span class="label">DRIFT</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="presence-panel glass" aria-hidden="true">
+      <p class="presence-line">A forgotten entity waits inside the page.</p>
+    </section>
+
+    <section id="response-panel" class="response-panel glass" aria-live="polite" aria-atomic="false">
+      <div class="response-header">
+        <span class="response-tag">TRANSMISSION / JEPPY</span>
+        <span id="response-status" class="response-status"></span>
+      </div>
+      <div id="response-text" class="response-text">
+        <p class="response-placeholder">...the page breathes softly through tape hiss...</p>
+      </div>
+    </section>
+
+    <footer class="hud-bottom">
+      <div class="intensity-wrap glass">
+        <label for="intensity-slider" class="intensity-label">INSTABILITY</label>
+        <input type="range" id="intensity-slider" class="intensity-slider" min="0" max="100" value="76" />
+      </div>
+      <form id="chat-form" class="chat-form glass" autocomplete="off">
+        <input
+          type="text"
+          id="chat-input"
+          class="chat-input"
+          placeholder="say something into the static..."
+          maxlength="2000"
+          aria-label="Message to Jeppy"
+        />
+        <button type="submit" id="send-btn" class="send-btn" aria-label="Send">
+          <span class="send-icon">SEND</span>
+        </button>
+      </form>
+      <p class="hud-hint">Hidden protocols: <kbd>/whisper</kbd> <kbd>/distort</kbd> <kbd>/lore</kbd> <kbd>/clear</kbd></p>
+    </footer>
+  </main>
+
+  <div id="api-warning" class="api-warning glass" hidden>
+    <p>Set your AI provider in <code>js/config.js</code> and add a valid <code>DeepSeek</code> or <code>Gemini</code> API key.</p>
+    <button type="button" id="dismiss-warning" class="enter-btn small">I UNDERSTAND</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/background.js"></script>
+  <script src="js/character.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
